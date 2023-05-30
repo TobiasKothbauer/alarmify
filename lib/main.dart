@@ -11,4 +11,7 @@ Future<void> main() async {
   await Alarm.init(showDebugLogs: true);
 
   runApp(const MaterialApp(home: ClockHome()));
+
+
+
 }
