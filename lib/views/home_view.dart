@@ -5,6 +5,7 @@ import 'package:alarmify/services/spotify_getItems_service.dart';
 import 'package:alarmify/views/edit_alarm.dart';
 import 'package:alarmify/views/ring.dart';
 import 'package:alarmify/widgets/tile.dart';
+import 'package:analog_clock/analog_clock.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/routes.dart';
@@ -129,32 +130,49 @@ class _ClockHomeState extends State<ClockHome> {
     return Scaffold(
       appBar: AppBar(title: const Text('Alarmify')),
       body: SafeArea(
-        child: alarms.isNotEmpty
-            ? ListView.separated(
-                itemCount: alarms.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) {
-                  return ExampleAlarmTile(
-                    key: Key(alarms[index].id.toString()),
-                    title: TimeOfDay(
-                      hour: alarms[index].dateTime.hour,
-                      minute: alarms[index].dateTime.minute,
-                    ).format(context),
-                    onPressed: ()=>navigateToDetail(alarms[index]),
-                    //onPressed: () => Navigator.of(context).pushNamed(newAlarmRoute, arguments: alarms[index]),
-                    //onPressed: () => navigateToAlarmScreen(alarms[index]),
-                    onDismissed: () {
-                      Alarm.stop(alarms[index].id).then((_) => loadAlarms());
-                    },
-                  );
-                },
-              )
-            : Center(
-                child: Text(
-                  "No alarms set",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 200,
+              // Customize the color as per your requirement
+              child: Center(
+                child: AnalogClock(),
+                  ),
+            ),
+            SizedBox(height: 10),
+            // Add a space between the green box and the alarms list
+
+            // Existing code for alarms list
+            alarms.isNotEmpty
+                ? Expanded(
+                    child: ListView.separated(
+                      itemCount: alarms.length,
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemBuilder: (context, index) {
+                        return ExampleAlarmTile(
+                          key: Key(alarms[index].id.toString()),
+                          title: TimeOfDay(
+                            hour: alarms[index].dateTime.hour,
+                            minute: alarms[index].dateTime.minute,
+                          ).format(context),
+                          onPressed: () => navigateToDetail(alarms[index]),
+                          onDismissed: () {
+                            Alarm.stop(alarms[index].id)
+                                .then((_) => loadAlarms());
+                          },
+                        );
+                      },
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      "No alarms set",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+          ],
+        ),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(10),
@@ -175,7 +193,7 @@ class _ClockHomeState extends State<ClockHome> {
               child: const Text("RING NOW", textAlign: TextAlign.center),
             ),
             FloatingActionButton(
-              onPressed: ()=>navigateToDetail(null),
+              onPressed: () => navigateToDetail(null),
               //onPressed: () => navigateToAlarmScreen(null),
               child: const Icon(Icons.alarm_add_rounded, size: 33),
             ),

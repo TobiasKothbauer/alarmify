@@ -133,18 +133,17 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
               ),
             ],
           ),
-          RawMaterialButton(
+          ElevatedButton(
             onPressed: pickTime,
-            fillColor: Colors.grey[200],
             child: Container(
-              margin: const EdgeInsets.all(20),
+              margin: const EdgeInsets.all(50),
               child: Text(
                 selectedTime.format(context),
                 style: Theme
                     .of(context)
                     .textTheme
                     .displayMedium!
-                    .copyWith(color: Colors.blueAccent),
+                    .copyWith(color: Colors.white),
               ),
             ),
           ),
