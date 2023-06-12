@@ -37,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: audio_session
-      sha256: "97317505460ab705e8e186e87a3924d67c74d8c8a07cbc087e3b988bbce7cfaa"
+      sha256: "655343841a723646f74932215c5785ef7156b76d2de4b99bcd3205476f08dc61"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.14"
+    version: "0.1.15"
   boolean_selector:
     dependency: transitive
     description:
@@ -97,6 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "7d328c4d898a61efc3cd93655a0955858e29a0aa647f0f9e02d59b3bb275e2e8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -126,6 +134,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      sha256: d9283d92059a22e9834bc0a31336658ffba77089fb6f3cc36751f1fc7c6661a3
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.2"
   flutter_fgbg:
     dependency: transitive
     description:
@@ -212,10 +228,10 @@ packages:
     dependency: transitive
     description:
       name: just_audio
-      sha256: d7ff71169927a2237c902aef6baf2f69d063d4c427590dee479d279d4d57c984
+      sha256: "890cd0fc41a1a4530c171e375a2a3fb6a09d84e9d508c5195f40bcff54330327"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.33"
+    version: "0.9.34"
   just_audio_platform_interface:
     dependency: transitive
     description:
@@ -240,6 +256,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      sha256: db2ff852ed77090ba9f62d3611e4208a3d11dfa35991a81ae724c113fcb3e3f7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   matcher:
     dependency: transitive
     description:
@@ -432,6 +456,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  sized_icon_button:
+    dependency: "direct main"
+    description:
+      name: sized_icon_button
+      sha256: "8c35295391997c491cd2c7e1953905286c3731491cca8fd74044cdc6fc32c7b1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -453,6 +485,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.0"
+  spotify_sdk:
+    dependency: "direct main"
+    description:
+      name: spotify_sdk
+      sha256: e61cb0b29d58db209847c0baf27084143d2288792b2e1d19bf8a3a3e2030a64b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   stack_trace:
     dependency: transitive
     description:
@@ -477,6 +517,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      sha256: "5fcbd27688af6082f5abd611af56ee575342c30e87541d0245f7ff99faa02c60"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   term_glyph:
     dependency: transitive
     description:

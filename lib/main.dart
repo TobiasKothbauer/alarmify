@@ -1,17 +1,47 @@
-import 'dart:async';
-import 'package:alarmify/views/home_view.dart';
+import 'package:alarmify/views/Spotify_auth_view.dart';
 import 'package:flutter/material.dart';
-import 'package:alarm/alarm.dart';
-import 'package:flutter/services.dart';
+import 'package:spotify_sdk/spotify_sdk.dart';
+import 'services/spotify_auth.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+void main() {
+  runApp(MyApp());
+}
 
-  await Alarm.init(showDebugLogs: true);
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Your App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routes: {
+        '/': (_) => HomeScreen(),
+        '/spotify-auth': (_) => SpotifyAuthScreen(redirectUri: 'alarmify://callback'),
+      },
+    );
+  }
+}
 
-  runApp(const MaterialApp(home: ClockHome()));
-
-
-
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/spotify-auth',
+                arguments: {
+                  'redirectUri': 'alarmify://callback',
+                }
+            );
+          },
+          child: Text('Authorize with Spotify'),
+        ),
+      ),
+    );
+  }
 }
