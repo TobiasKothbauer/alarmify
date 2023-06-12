@@ -7,6 +7,8 @@ import 'package:alarmify/views/ring.dart';
 import 'package:alarmify/widgets/tile.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/routes.dart';
+
 class ClockHome extends StatefulWidget {
   const ClockHome({Key? key}) : super(key: key);
 
@@ -77,7 +79,42 @@ class _ClockHomeState extends State<ClockHome> {
           );
         });
 
-    if (res != null && res == true) loadAlarms();
+    loadAlarms();
+  }
+
+  Future<void> navigateToDetail(AlarmSettings? settings) async {
+    final result = await Navigator.push<bool?>(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Edit Alarm'),
+            ),
+            body: ExampleAlarmEditScreen(alarmSettings: settings),
+          );
+        },
+      ),
+    );
+
+    if (result != null && result == true) {
+      loadAlarms();
+    }
+    /*
+    final res = await showModalBottomSheet<bool?>(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (context) {
+          return FractionallySizedBox(
+            heightFactor: 0.6,
+            child: ExampleAlarmEditScreen(alarmSettings: settings),
+          );
+        });
+
+   */
   }
 
   @override
@@ -88,6 +125,7 @@ class _ClockHomeState extends State<ClockHome> {
 
   @override
   Widget build(BuildContext context) {
+    loadAlarms();
     return Scaffold(
       appBar: AppBar(title: const Text('Alarmify')),
       body: SafeArea(
@@ -102,7 +140,9 @@ class _ClockHomeState extends State<ClockHome> {
                       hour: alarms[index].dateTime.hour,
                       minute: alarms[index].dateTime.minute,
                     ).format(context),
-                    onPressed: () => navigateToAlarmScreen(alarms[index]),
+                    onPressed: ()=>navigateToDetail(alarms[index]),
+                    //onPressed: () => Navigator.of(context).pushNamed(newAlarmRoute, arguments: alarms[index]),
+                    //onPressed: () => navigateToAlarmScreen(alarms[index]),
                     onDismissed: () {
                       Alarm.stop(alarms[index].id).then((_) => loadAlarms());
                     },
@@ -135,7 +175,8 @@ class _ClockHomeState extends State<ClockHome> {
               child: const Text("RING NOW", textAlign: TextAlign.center),
             ),
             FloatingActionButton(
-              onPressed: () => navigateToAlarmScreen(null),
+              onPressed: ()=>navigateToDetail(null),
+              //onPressed: () => navigateToAlarmScreen(null),
               child: const Icon(Icons.alarm_add_rounded, size: 33),
             ),
           ],
