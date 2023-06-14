@@ -1,5 +1,6 @@
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
+import 'package:alarmify/services/spotify_getItems_service.dart';
 
 class ExampleAlarmEditScreen extends StatefulWidget {
   final AlarmSettings? alarmSettings;
@@ -20,9 +21,12 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
   late bool showNotification;
   late String assetAudio;
 
+
+
   @override
   void initState() {
     super.initState();
+    loadService();
     creating = widget.alarmSettings == null;
 
     if (creating) {
@@ -45,6 +49,22 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
           widget.alarmSettings!.notificationBody!.isNotEmpty;
       assetAudio = widget.alarmSettings!.assetAudioPath;
     }
+  }
+
+  Future<void> loadService() async{
+    final spotifyService = SpotifyService();
+    //spotifyService.getTracksByAlbum();
+    //final playlist = await spotifyService.getPlaylist();
+    //final tracks = await spotifyService.getPlaylistTrackURIs();
+    final albumTracks=await spotifyService.getTracksByAlbum();
+
+    if (albumTracks != null) {
+
+      // Add any additional properties you want to access from the artist object
+    } else {
+      print('Failed to fetch artist details.');
+    }
+
   }
 
   Future<void> pickTime() async {
@@ -209,6 +229,10 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
                   DropdownMenuItem<String>(
                     value: 'assets/star_wars.mp3',
                     child: Text('Star Wars'),
+                  ),
+                  DropdownMenuItem<String>(
+                    value: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+                    child: Text('Wonderwall'),
                   ),
                 ],
                 onChanged: (value) => setState(() => assetAudio = value!),

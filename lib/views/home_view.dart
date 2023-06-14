@@ -9,6 +9,7 @@ import 'package:analog_clock/analog_clock.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/routes.dart';
+import '../services/spotify_player.dart';
 
 class ClockHome extends StatefulWidget {
   const ClockHome({Key? key}) : super(key: key);
@@ -186,11 +187,20 @@ class _ClockHomeState extends State<ClockHome> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
+             foregroundColor: Colors.white,
               onPressed: () => navigateToDetail(null),
               //onPressed: () => navigateToAlarmScreen(null),
               child: const Icon(Icons.alarm_add_rounded, size: 33),
-
             ),
+            ElevatedButton(
+              onPressed: () {
+                SpotifyPlayer.playSong('spotify:track:4OSBTYWVwsQhGLF9NHvIbR');
+              },
+              child: Text('Play Song'),
+            ),
+
+
+
           ],
         ),
       ),

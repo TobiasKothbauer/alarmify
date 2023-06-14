@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:spotify/spotify.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,19 +36,44 @@ class SpotifyService {
     }
   }
 
+  Future<String?> getAccessToken() async {
+    final clientId = 'c9908de47647401f9c8ee342e2ff083c';
+    final clientSecret = 'c9cca7146ac94b078a3cecc283d43e3a';
+    final url = Uri.parse('https://accounts.spotify.com/api/token');
+    final headers = {
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$clientId:$clientSecret'))}',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    final body = 'grant_type=client_credentials';
+
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final accessToken = responseData['access_token'];
+      return accessToken;
+    } else {
+      print('Failed to retrieve access token. Status code: ${response.statusCode}');
+      return null;
+    }
+  }
 
 
-
-  Future<void> playSong(String accessToken, String songUri) async {
+  Future<void> playSong(String songUri) async {
     final url = Uri.parse('https://api.spotify.com/v1/me/player/play');
+    final accessToken = await getAccessToken();
+
     final headers = {
       'Authorization': 'Bearer $accessToken',
       'Content-Type': 'application/json',
     };
     final body = '{"uris": ["$songUri"]}';
+    print(headers);
 
-    final response = await http.post(url, headers: headers, body: body);
-
+    final response = await http.put(url, headers: headers, body: body);
+    print(response.body);
+    print(accessToken);
+    print(body);
     if (response.statusCode == 204) {
       print('Song played successfully');
     } else {
@@ -56,16 +83,18 @@ class SpotifyService {
 
   Future getTracksByAlbum() async {
     const albumID = '5duyQokC4FMcWPYTV9Gpf9';
-    final accessToken = '0dea55f05fbd4d4a83d440419f5f767f';
     try {
       final album = await _spotify.albums.getTracks(albumID).all();
-      album.forEach((element) {
+      final trackID=album.first.uri;
+      print(trackID);
+      print('Test');
+      playSong(trackID!);
+      /*album.forEach((element) {
         if (element.uri != null) {
-          playSong(accessToken, element.uri!);
+          playSong(element.uri!);
           print(element.uri);
         }
-      });
-
+      });*/
       return album;
     } catch (e) {
 // Handle any errors that occur during the API call

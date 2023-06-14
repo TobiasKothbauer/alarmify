@@ -1,0 +1,3 @@
+project(':spotify-app-remote').projectDir = new File(rootDir, 'android/spotify-app-remote/')
+include ':spotify-app-remote'
+include ':myapplication'
