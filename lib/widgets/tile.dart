@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ExampleAlarmTile extends StatelessWidget {
+class AlarmListItem extends StatelessWidget {
   final String title;
   final void Function() onPressed;
   final void Function()? onDismissed;
 
-  const ExampleAlarmTile({
+  const AlarmListItem({
     Key? key,
     required this.title,
     required this.onPressed,
@@ -33,19 +33,19 @@ class ExampleAlarmTile extends StatelessWidget {
       child: RawMaterialButton(
         onPressed: onPressed,
         child: Container(
-          height: 100,
-          padding: const EdgeInsets.all(35),
+          height: 80,
+          padding: const EdgeInsets.only(left: 40, right: 40),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
-              const Icon(Icons.keyboard_arrow_right_rounded, size: 35),
+              const Icon(Icons.edit, size: 20),
             ],
           ),
         ),

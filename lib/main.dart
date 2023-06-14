@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Alarmify',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.amber,
       ),
       home: const ClockHome(),
       routes: {

@@ -58,9 +58,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
   AlarmSettings buildAlarmSettings() {
     final now = DateTime.now();
     final id = creating
-        ? DateTime
-        .now()
-        .millisecondsSinceEpoch % 100000
+        ? DateTime.now().millisecondsSinceEpoch % 100000
         : widget.alarmSettings!.id;
 
     DateTime dateTime = DateTime(
@@ -113,24 +111,25 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
                 onPressed: () => Navigator.pop(context, false),
                 child: Text(
                   "Cancel",
-                  style: Theme
-                      .of(context)
+                  style: Theme.of(context)
                       .textTheme
                       .titleLarge!
                       .copyWith(color: Colors.blueAccent),
                 ),
               ),
               TextButton(
-                onPressed: saveAlarm,
-                child: Text(
-                  "Save",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Colors.greenAccent),
-                ),
-              ),
+                  onPressed: saveAlarm,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    primary: Colors.white
+                  ),
+                  child: Row(children: [
+                    Text(
+                      'Save',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Icon(Icons.done, size: 40),
+                  ])),
             ],
           ),
           ElevatedButton(
@@ -139,8 +138,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
               margin: const EdgeInsets.all(50),
               child: Text(
                 selectedTime.format(context),
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .displayMedium!
                     .copyWith(color: Colors.white),
@@ -152,10 +150,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
             children: [
               Text(
                 'Loop alarm audio',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .titleMedium,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               Switch(
                 value: loopAudio,
@@ -168,10 +163,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
             children: [
               Text(
                 'Vibrate',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .titleMedium,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               Switch(
                 value: vibrate,
@@ -184,15 +176,11 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
             children: [
               Text(
                 'Show notification',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .titleMedium,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               Switch(
                 value: showNotification,
-                onChanged: (value) =>
-                    setState(() => showNotification = value),
+                onChanged: (value) => setState(() => showNotification = value),
               ),
             ],
           ),
@@ -201,10 +189,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
             children: [
               Text(
                 'Sound',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .titleMedium,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               DropdownButton(
                 value: assetAudio,
@@ -235,8 +220,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
               onPressed: deleteAlarm,
               child: Text(
                 'Delete Alarm',
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(color: Colors.red),

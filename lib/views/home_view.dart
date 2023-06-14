@@ -90,9 +90,19 @@ class _ClockHomeState extends State<ClockHome> {
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('Edit Alarm'),
+              title: Text('Edit Alarm',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w300,
+                  letterSpacing: 2.0,
+                ),
+              ),
+              elevation: 4,
+              centerTitle: true,
             ),
-            body: ExampleAlarmEditScreen(alarmSettings: settings),
+            body: ExampleAlarmEditScreen(
+                alarmSettings: settings,),
+
           );
         },
       ),
@@ -101,21 +111,6 @@ class _ClockHomeState extends State<ClockHome> {
     if (result != null && result == true) {
       loadAlarms();
     }
-    /*
-    final res = await showModalBottomSheet<bool?>(
-        context: context,
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        builder: (context) {
-          return FractionallySizedBox(
-            heightFactor: 0.6,
-            child: ExampleAlarmEditScreen(alarmSettings: settings),
-          );
-        });
-
-   */
   }
 
   @override
@@ -128,20 +123,31 @@ class _ClockHomeState extends State<ClockHome> {
   Widget build(BuildContext context) {
     loadAlarms();
     return Scaffold(
-      appBar: AppBar(title: const Text('Alarmify')),
+      appBar: AppBar(
+        title: Text(
+          'Alarmify',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w300,
+            letterSpacing: 4.0,
+          ),
+        ),
+        elevation: 4,
+        centerTitle: true,
+    ),
       body: SafeArea(
         child: Column(
           children: [
             Container(
+              margin: EdgeInsets.only(top: 40.0, bottom: 40),
               width: double.infinity,
               height: 200,
               // Customize the color as per your requirement
               child: Center(
                 child: AnalogClock(),
-                  ),
+              ),
             ),
-            SizedBox(height: 10),
-            // Add a space between the green box and the alarms list
+
 
             // Existing code for alarms list
             alarms.isNotEmpty
@@ -150,7 +156,7 @@ class _ClockHomeState extends State<ClockHome> {
                       itemCount: alarms.length,
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) {
-                        return ExampleAlarmTile(
+                        return AlarmListItem(
                           key: Key(alarms[index].id.toString()),
                           title: TimeOfDay(
                             hour: alarms[index].dateTime.hour,
@@ -175,27 +181,15 @@ class _ClockHomeState extends State<ClockHome> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              onPressed: () {
-                final alarmSettings = AlarmSettings(
-                  id: 42,
-                  dateTime: DateTime.now(),
-                  assetAudioPath: 'assets/mozart.mp3',
-                );
-                Alarm.set(alarmSettings: alarmSettings);
-              },
-              backgroundColor: Colors.red,
-              heroTag: null,
-              child: const Text("RING NOW", textAlign: TextAlign.center),
-            ),
             FloatingActionButton(
               onPressed: () => navigateToDetail(null),
               //onPressed: () => navigateToAlarmScreen(null),
               child: const Icon(Icons.alarm_add_rounded, size: 33),
+
             ),
           ],
         ),
